@@ -24,9 +24,10 @@ namespace ClassSchedule.Controllers
             var classOptions = new QueryOptions<Class> {
                 Includes = "Teacher, Day"
             };
-            // order by Day if no filter. Otherwise, filter by day and order by time.
+            // order by Day and then by time if no filter. Otherwise, filter by day and order by time.
             if (id == 0) {
                 classOptions.OrderBy = c => c.DayId;
+                classOptions.ThenOrderBy = c => c.MilitaryTime;
             }
             else {
                 classOptions.Where = c => c.DayId == id;
